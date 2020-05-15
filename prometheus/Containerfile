@@ -1,16 +1,23 @@
 FROM fedora:32
+
+RUN groupadd prometheus
+RUN useradd -g prometheus prometheus
+
 RUN dnf install -y wget
 RUN wget -O prometheus.tar.gz https://github.com/prometheus/prometheus/releases/download/v2.18.1/prometheus-2.18.1.linux-amd64.tar.gz
 RUN tar xf prometheus.tar.gz
 RUN mv prometheus-2.18.1.linux-amd64 p
+RUN chown -R prometheus: /p
+RUN chown -R prometheus: /var/lib/prometheus
 
 ENV PATH="$PATH:/p"
 
 RUN mkdir /etc/prometheus
-
-COPY run-prometheus.sh /bin/run-prometheus.sh
 COPY prometheus.yml /etc/prometheus/prometheus.yml
 
+COPY run-prometheus.sh /bin/run-prometheus.sh
+
 EXPOSE 9091
-WORKDIR /prometheus
+USER prometheus
+WORKDIR /var/lib/prometheus
 ENTRYPOINT [ "/bin/run-prometheus.sh" ]
