@@ -3,8 +3,8 @@ Description=Grafana server
 
 [Service]
 Restart=always
-ExecStart=/usr/bin/podman run --rm -i -v /pods/grafana/data:/var/lib/grafana:z -p 3000:3000 --name grafana rlyeh/grafana
+ExecStart=/usr/bin/podman run --rm -i -v /cdata/grafana/data:/var/lib/grafana -p 3000:3000 --name grafana rlyeh/grafana
 ExecStop=podman stop -t 2 grafana
 
 [Install]
-WantedBy=local.target
+WantedBy=multi-user.target

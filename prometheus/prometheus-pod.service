@@ -3,8 +3,8 @@ Description=Prometheus server
 
 [Service]
 Restart=always
-ExecStart=/usr/bin/podman run --rm -i -v /pods/prometheus/data:/prometheus:z -p 9091:9091 --name prometheus rlyeh/prometheus
+ExecStart=/usr/bin/podman run --rm -i -v /cdata/prometheus/data:/var/lib/prometheus -p 9091:9091 --name prometheus rlyeh/prometheus
 ExecStop=podman stop -t 2 prometheus
 
 [Install]
-WantedBy=local.target
+WantedBy=multi-user.target
