@@ -1,0 +1,10 @@
+[Unit]
+Description=Alert Manager server
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/podman run --rm -it -v /cdata/alertmanager/data:/var/lib/alertmanager -v /cdata/alertmanager/config:/etc/alertmanager -p 9093:9093 --name alertmanager rlyeh/alertmanager
+ExecStop=podman stop -t 2 alertmanager
+
+[Install]
+WantedBy=multi-user.target

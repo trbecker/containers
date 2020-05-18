@@ -1,0 +1,11 @@
+---
+route:
+  receiver: 'slack'
+
+receivers:
+  - name: 'slack'
+    slack_configs:
+      - send_resolved:
+        username: 'un'
+        channel: 'chann'
+        api_url: 'webhook'
