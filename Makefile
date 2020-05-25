@@ -5,3 +5,4 @@ all:
 	make -C grafana
 	make -C alert_manager
 	make -C snmp_exporter
+	make -C nginx

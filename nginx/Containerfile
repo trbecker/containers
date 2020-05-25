@@ -1,0 +1,10 @@
+FROM fedora:32
+
+RUN dnf install -y nginx
+
+RUN mkdir /app
+COPY run-nginx.sh /app/run.sh
+
+EXPOSE 80
+WORKDIR /app
+ENTRYPOINT [ "/app/run.sh" ]

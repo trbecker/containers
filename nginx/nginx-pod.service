@@ -1,0 +1,10 @@
+[Unit]
+Description=Prometheus server
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/podman run --rm -it -v /cdata/nginx/data:/var/lib/nginx -v /cdata/nginx/config:/etc/nginx -p 80:80 --name nginx rlyeh/nginx
+ExecStop=podman stop -t 2 nginx
+
+[Install]
+WantedBy=multi-user.target
