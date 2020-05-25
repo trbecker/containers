@@ -4,3 +4,4 @@ all:
 	make -C prometheus
 	make -C grafana
 	make -C alert_manager
+	make -C snmp_exporter

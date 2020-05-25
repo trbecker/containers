@@ -1,0 +1,10 @@
+[Unit]
+Description=Prometheus server
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/podman run --rm -it -v /cdata/snmp-exporter/data:/var/lib/snmp-exporter -v /cdata/snmp-exporter/config:/etc/snmp-exporter -p 9116:9116 --name snmp-exporter rlyeh/snmp-exporter
+ExecStop=podman stop -t 2 snmp-exporter
+
+[Install]
+WantedBy=multi-user.target

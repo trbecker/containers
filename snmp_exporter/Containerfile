@@ -1,0 +1,17 @@
+FROM fedora:32
+
+RUN groupadd prometheus
+RUN useradd -g prometheus prometheus
+
+RUN dnf install -y wget
+RUN wget -O snmp_exporter.tar.gz https://github.com/prometheus/snmp_exporter/releases/download/v0.17.0/snmp_exporter-0.17.0.linux-amd64.tar.gz
+
+RUN tar xf snmp_exporter.tar.gz
+RUN mv snmp_exporter-0.17.0.linux-amd64 app
+COPY run-snmp-exporter.sh /app/run.sh
+RUN chown -R prometheus:prometheus /app /etc/snmp-exporter/*
+
+EXPOSE 9116
+USER prometheus
+WORKDIR /app
+ENTRYPOINT [ "/app/run.sh" ]
