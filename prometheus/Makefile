@@ -1,7 +1,7 @@
 SERVICE:=prometheus
 SERVICE_PATH:=/cdata/$(SERVICE)
 
-all: /etc/systemd/system/$(SERVICE)-pod.service $(SERVICE_PATH)/data $(SERVICE_PATH)/config/ .built 
+all: /etc/systemd/system/$(SERVICE)-pod.service $(SERVICE_PATH)/data $(SERVICE_PATH)/config .built 
 
 $(SERVICE_PATH)/data: $(SERVICE_PATH)
 	mkdir -p $(SERVICE_PATH)/data
