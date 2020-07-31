@@ -1,8 +1,15 @@
 SERVICE:=grafana
+SERVICE_PATH:=/cdata/$(SERVICE)
 
-all: .built /etc/systemd/system/$(SERVICE)-pod.service
+all: /etc/systemd/system/$(SERVICE)-pod.service .built 
 
-.built: Containerfile run-$(SERVICE).sh
+$(SERVICE_PATH)/%: $(SERVICE_PATH)
+	mkdir -p $@
+
+$(SERVICE_PATH):
+	mkdir $(SERVICE_PATH)
+
+.built: Containerfile run-$(SERVICE).sh $(SERVICE_PATH)/data
 	podman build -v /cdata/$(SERVICE)/data:/var/lib/$(SERVICE):z -t rlyeh/$(SERVICE) . && touch .built
 
 /etc/systemd/system/$(SERVICE)-pod.service: $(SERVICE)-pod.service
